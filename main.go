@@ -56,6 +56,7 @@ import (
 	"sigs.k8s.io/external-dns/provider/infoblox"
 	"sigs.k8s.io/external-dns/provider/inmemory"
 	"sigs.k8s.io/external-dns/provider/linode"
+	"sigs.k8s.io/external-dns/provider/netcup"
 	"sigs.k8s.io/external-dns/provider/ns1"
 	"sigs.k8s.io/external-dns/provider/oci"
 	"sigs.k8s.io/external-dns/provider/ovh"
@@ -264,6 +265,12 @@ func main() {
 				CreatePTR:     cfg.InfobloxCreatePTR,
 				CacheDuration: cfg.InfobloxCacheDuration,
 			},
+		)
+	case "netcup":
+		p, err = netcup.NewNetcupProvider(ctx,
+			&domainFilter,
+			&zoneIDFilter,
+			cfg.DryRun,
 		)
 	case "dyn":
 		p, err = dyn.NewDynProvider(
