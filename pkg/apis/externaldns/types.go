@@ -198,6 +198,10 @@ type Config struct {
 	PiholeTLSInsecureSkipVerify       bool
 	PluralCluster                     string
 	PluralProvider                    string
+	NetcupCustomerID                  int
+	NetcupAPIKey                      string `secure:"yes"`
+	NetcupAPIPassword                 string `secure:"yes"`
+	NetcupZones                       []string
 }
 
 var defaultConfig = &Config{
@@ -340,6 +344,10 @@ var defaultConfig = &Config{
 	PiholeTLSInsecureSkipVerify: false,
 	PluralCluster:               "",
 	PluralProvider:              "",
+	NetcupCustomerID:            0,
+	NetcupAPIKey:                "",
+	NetcupAPIPassword:           "",
+	NetcupZones:                 []string{},
 }
 
 // NewConfig returns new Config object
@@ -552,6 +560,12 @@ func (cfg *Config) ParseFlags(args []string) error {
 	// Flags related to the Plural provider
 	app.Flag("plural-cluster", "When using the plural provider, specify the cluster name you're running with").Default(defaultConfig.PluralCluster).StringVar(&cfg.PluralCluster)
 	app.Flag("plural-provider", "When using the plural provider, specify the provider name you're running with").Default(defaultConfig.PluralProvider).StringVar(&cfg.PluralProvider)
+
+	// Flags related to the Netcup provider
+	app.Flag("netcup-customer-id", "When using the netcup provider, specify the customer id you're running with").Default(strconv.Itoa(defaultConfig.NetcupCustomerID)).IntVar(&cfg.NetcupCustomerID)
+	app.Flag("netcup-api-key", "When using the netcup provider, specify the api key you're running with").Default(defaultConfig.NetcupAPIKey).StringVar(&cfg.NetcupAPIKey)
+	app.Flag("netcup-api-password", "When using the netcup provider, specify the api password you're running with").Default(defaultConfig.NetcupAPIPassword).StringVar(&cfg.NetcupAPIPassword)
+	app.Flag("netcup-zones", "When using the netcup provider, specify a list of zones you're running with").Default("").StringsVar(&cfg.NetcupZones)
 
 	// Flags related to policies
 	app.Flag("policy", "Modify how DNS records are synchronized between sources and providers (default: sync, options: sync, upsert-only, create-only)").Default(defaultConfig.Policy).EnumVar(&cfg.Policy, "sync", "upsert-only", "create-only")

@@ -266,12 +266,6 @@ func main() {
 				CacheDuration: cfg.InfobloxCacheDuration,
 			},
 		)
-	case "netcup":
-		p, err = netcup.NewNetcupProvider(ctx,
-			&domainFilter,
-			&zoneIDFilter,
-			cfg.DryRun,
-		)
 	case "dyn":
 		p, err = dyn.NewDynProvider(
 			dyn.DynConfig{
@@ -361,6 +355,8 @@ func main() {
 		p, err = plural.NewPluralProvider(cfg.PluralCluster, cfg.PluralProvider)
 	case "tencentcloud":
 		p, err = tencentcloud.NewTencentCloudProvider(domainFilter, zoneIDFilter, cfg.TencentCloudConfigFile, cfg.TencentCloudZoneType, cfg.DryRun)
+	case "netcup":
+		p, err = netcup.NewNetcupProvider(cfg.NetcupCustomerID, cfg.NetcupAPIKey, cfg.NetcupAPIPassword, cfg.NetcupZones, cfg.DryRun)
 	default:
 		log.Fatalf("unknown dns provider: %s", cfg.Provider)
 	}
