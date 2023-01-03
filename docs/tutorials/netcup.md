@@ -195,13 +195,13 @@ the Netcup DNS records.
 
 ## Verifying Netcup DNS records
 
-Check your [Netcup domain overview](https://www.customercontrolpanel.de/domains.php) to view the domains associated with your Plural account. There you can view the records for each domain.
+Check your [Netcup domain overview](https://www.customercontrolpanel.de/domains.php) to view the domains associated with your Netcup account. There you can view the records for each domain.
 
 The records should show the external IP address of the service as the A record for your domain.
 
 ## Cleanup
 
-Now that we have verified that ExternalDNS will automatically manage Plural DNS records, we can delete the tutorial's example:
+Now that we have verified that ExternalDNS will automatically manage Netcup DNS records, we can delete the tutorial's example:
 
 ```
 $ kubectl delete -f nginx.yaml
